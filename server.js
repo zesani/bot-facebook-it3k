@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.get('/webhook', function(req, res) {
-  var key = 'Api ของคุณเลย'
+  var key = 'EAAasXgVHJYYBACku32HxSkHZCrbyb7DXKcHlXdKeNVoWjfxwMvIVgtM7Y0DFwZAzx7CCHsWkxH8tYRXq4yQxsggThhGAIHkrgDBobugVmpAI3FKnNqKhb5M2y8pGNybQgXxInhhPJ8KSdb0bhoQ6OpvtpesXtMj3Y3rZADUJwZDZD'
   if (req.query['hub.verify_token'] === key) {
     res.send(req.query['hub.challenge'])
   }
@@ -100,7 +100,7 @@ function sendTextMessage(recipientId, messageText) {
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: 'Api ของคุณเลย' },
+    qs: { access_token: 'EAAasXgVHJYYBACku32HxSkHZCrbyb7DXKcHlXdKeNVoWjfxwMvIVgtM7Y0DFwZAzx7CCHsWkxH8tYRXq4yQxsggThhGAIHkrgDBobugVmpAI3FKnNqKhb5M2y8pGNybQgXxInhhPJ8KSdb0bhoQ6OpvtpesXtMj3Y3rZADUJwZDZD' },
     method: 'POST',
     json: messageData
 
