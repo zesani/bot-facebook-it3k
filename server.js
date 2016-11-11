@@ -17,22 +17,22 @@ app.get('/webhook', function(req, res) {
 })
 
 app.post('/webhook', function (req, res) {
-  var data = req.body;
+  var data = req.body
 
   // Make sure this is a page subscription
   if (data.object === 'page') {
 
     // Iterate over each entry - there may be multiple if batched
     data.entry.forEach(function(entry) {
-      var pageID = entry.id;
-      var timeOfEvent = entry.time;
+      var pageID = entry.id
+      var timeOfEvent = entry.time
 
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
         if (event.message) {
-          receivedMessage(event);
+          receivedMessage(event)
         } else {
-          console.log("Webhook received unknown event: ", event);
+          console.log("Webhook received unknown event: ", event)
         }
       });
     });
@@ -42,19 +42,19 @@ app.post('/webhook', function (req, res) {
     // You must send back a 200, within 20 seconds, to let us know
     // you've successfully received the callback. Otherwise, the request
     // will time out and we will keep trying to resend.
-    res.sendStatus(200);
+    res.sendStatus(200)
   }
 });
 
 function receivedMessage(event) {
-  var senderID = event.sender.id;
-  var recipientID = event.recipient.id;
-  var timeOfMessage = event.timestamp;
-  var message = event.message;
+  var senderID = event.sender.id
+  var recipientID = event.recipient.id
+  var timeOfMessage = event.timestamp
+  var message = event.message
 
   console.log("Received message for user %d and page %d at %d with message:",
-    senderID, recipientID, timeOfMessage);
-  console.log(JSON.stringify(message));
+    senderID, recipientID, timeOfMessage)
+  console.log(JSON.stringify(message))
 
   var messageId = message.mid;
 
@@ -100,7 +100,7 @@ function sendTextMessage(recipientId, messageText) {
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: 'EAAasXgVHJYYBACku32HxSkHZCrbyb7DXKcHlXdKeNVoWjfxwMvIVgtM7Y0DFwZAzx7CCHsWkxH8tYRXq4yQxsggThhGAIHkrgDBobugVmpAI3FKnNqKhb5M2y8pGNybQgXxInhhPJ8KSdb0bhoQ6OpvtpesXtMj3Y3rZADUJwZDZD' },
+    qs: { access_token: 'EAAasXgVHJYYBAIrnZATFBPJIwf3Q9JjiGBaZBYWJftwHr0l9WwM7VeZC60OiA1juhgbsv25KZC98MMPnLeXlJbGZCJYqeEZC2VeRgWZAhXPAzbZCO3CPqudo4uSdr5XK4U5F2enS6iSyZBuTIpZCJmGwJc8uaN6AAqONxl60IgaWGT5AZDZD' },
     method: 'POST',
     json: messageData
 
