@@ -81,6 +81,46 @@ function receivedMessage (event) {
   }
 }
 
+function sendGenericMessage(recipientId, messageText) {
+  // To be expanded in later sections
+}
+
+function sendTextMessage(recipientId, messageText) {
+  var messageData = {
+    recipient: {
+      id: recipientId
+    },
+    message: {
+      text: messageText
+    }
+  };
+
+  callSendAPI(messageData);
+}
+
+
+function callSendAPI(messageData) {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: {access_token: 'EAAasXgVHJYYBAIrnZATFBPJIwf3Q9JjiGBaZBYWJftwHr0l9WwM7VeZC60OiA1juhgbsv25KZC98MMPnLeXlJbGZCJYqeEZC2VeRgWZAhXPAzbZCO3CPqudo4uSdr5XK4U5F2enS6iSyZBuTIpZCJmGwJc8uaN6AAqONxl60IgaWGT5AZDZD'},
+    method: 'POST',
+    json: messageData
+
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var recipientId = body.recipient_id
+      var messageId = body.message_id
+
+      console.log("Successfully sent generic message with id %s to recipient %s",
+        messageId, recipientId);
+    } else {
+      console.error("Unable to send message.")
+      console.error(response)
+      console.error(error)
+    }
+  });
+}
+
 app.get('/', function (req, res) {
   res.send('Hello')
 })
