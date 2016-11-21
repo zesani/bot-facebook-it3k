@@ -16,7 +16,7 @@ var config = {
   messagingSenderId: '71330528993'
 }
 firebase.initializeApp(config)
-
+var Members = firebase.database().ref('members')
 app.get('/webhook', function (req, res) {
   var key = 'EAAD98d4jaMABALd9uZAFMbllQWZCOwZBtjPEkHcZCMrk050ZAjgsTZBIgsprI41nXR8XomBMCUPnhcDQZCMz1Rlyhaz0Vjq1JxlGuV4qcbPu38wpIZCDErky0PupzFJkpk7oqR7uoJaNivR4llCJ8MNLnZA4unhWnZBWkLMabNfxuKOQZDZD'
   if (req.query['hub.verify_token'] === key) {
@@ -62,6 +62,10 @@ function receivedMessage (event) {
   if (messageText) {
     if (messageText === 'test') {
       sendTextMessage(senderID, senderID)
+      var data = {
+        id: senderID
+      }
+      Members.push(data)
     }
     switch (messageText) {
       case 'generic':
