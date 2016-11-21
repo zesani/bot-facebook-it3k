@@ -69,6 +69,7 @@ function receivedMessage (event) {
   if (messageText) {
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
+    sendTextMessage(senderID, 'ถ้าคุณพิมพ์ว่า hello ผมจะพูดสวัสดีครับ')
     switch (messageText) {
       case 'generic':
         sendGenericMessage(senderID)
@@ -93,9 +94,8 @@ function sendTextMessage(recipientId, messageText) {
     message: {
       text: messageText
     }
-  };
-
-  callSendAPI(messageData);
+  }
+  callSendAPI(messageData)
 }
 
 
@@ -118,12 +118,8 @@ function callSendAPI(messageData) {
       console.error(response)
       console.error(error)
     }
-  });
+  })
 }
-
-app.get('/', function (req, res) {
-  res.send('Hello')
-})
 app.listen(app.get('port'), function () {
   console.log('run at port', app.get('port'))
 })
