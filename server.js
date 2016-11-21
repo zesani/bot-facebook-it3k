@@ -53,7 +53,7 @@ app.post('/webhook', function (req, res) {
     res.sendStatus(200)
   }
 })
-function receivedMessage(event) {
+function receivedMessage (event) {
   var senderID = event.sender.id
   var recipientID = event.recipient.id
   var timeOfMessage = event.timestamp
@@ -69,7 +69,10 @@ function receivedMessage(event) {
   if (messageText) {
     if (messageText === ':3') {
       // sendTextMessage(senderID, senderID)
-      Members.push(senderID)
+      var data = {
+        id: senderID
+      }
+      Members.push(data)
     }
     switch (messageText) {
       case 'generic':
