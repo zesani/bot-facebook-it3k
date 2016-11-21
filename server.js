@@ -17,6 +17,21 @@ var config = {
 }
 firebase.initializeApp(config)
 var Members = firebase.database().ref('members')
+var members = []
+var It3k = firebase.database().ref('It3k')
+Members.on('child_added', function (snapshot) {
+  var item = snapshot.val()
+  item.id = snapshot.key
+  members.push(item)
+})
+It3k.on('child_added', function (snapshot) {
+  var item = snapshot.val()
+  item.id = snapshot.key
+  members.forEach(member => {
+    sendTextMessage(member.id, item.competition)
+  })
+})
+
 app.get('/webhook', function (req, res) {
   var key = 'EAAD98d4jaMABALd9uZAFMbllQWZCOwZBtjPEkHcZCMrk050ZAjgsTZBIgsprI41nXR8XomBMCUPnhcDQZCMz1Rlyhaz0Vjq1JxlGuV4qcbPu38wpIZCDErky0PupzFJkpk7oqR7uoJaNivR4llCJ8MNLnZA4unhWnZBWkLMabNfxuKOQZDZD'
   if (req.query['hub.verify_token'] === key) {
