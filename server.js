@@ -49,9 +49,7 @@ app.post('/webhook', function (req, res) {
   }
 })
 
-function receivedMessage (event) {
-  // Putting a stub for now, we'll expand it in the following steps
-  console.log('Message data: ', event.message)
+function receivedMessage(event) {
   var senderID = event.sender.id
   var recipientID = event.recipient.id
   var timeOfMessage = event.timestamp
@@ -61,28 +59,32 @@ function receivedMessage (event) {
     senderID, recipientID, timeOfMessage)
   console.log(JSON.stringify(message))
 
-  var messageId = message.mid
+  var messageId = message.mid;
 
-  var messageText = message.text
-  var messageAttachments = message.attachments
+  var messageText = message.text;
+  var messageAttachments = message.attachments;
 
   if (messageText) {
+    if (messageText === 'hello') {
+      sendTextMessage(senderID, 'ถ้าคุณพิมพ์ว่า hello ผมจะพูดสวัสดีครับ');
+    }
+
     // If we receive a text message, check to see if it matches a keyword
     // and send back the example. Otherwise, just echo the text we received.
-    sendTextMessage(senderID, 'ถ้าคุณพิมพ์ว่า hello ผมจะพูดสวัสดีครับ')
     switch (messageText) {
       case 'generic':
-        sendGenericMessage(senderID)
-        break
+        sendGenericMessage(senderID);
+        break;
+
       default:
-        sendTextMessage(senderID, messageText)
+        sendTextMessage(senderID, messageText);
     }
   } else if (messageAttachments) {
-    sendTextMessage(senderID, 'Message with attachment received')
+    sendTextMessage(senderID, "Message with attachment received");
   }
 }
 
-function sendGenericMessage(recipientId, messageText) {
+function sendGenericMessage (recipientId, messageText) {
   // To be expanded in later sections
 }
 
@@ -95,19 +97,19 @@ function sendTextMessage(recipientId, messageText) {
       text: messageText
     }
   }
+
   callSendAPI(messageData)
 }
 
-
-function callSendAPI(messageData) {
+function callSendAPI (messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: {access_token: 'EAAasXgVHJYYBAIrnZATFBPJIwf3Q9JjiGBaZBYWJftwHr0l9WwM7VeZC60OiA1juhgbsv25KZC98MMPnLeXlJbGZCJYqeEZC2VeRgWZAhXPAzbZCO3CPqudo4uSdr5XK4U5F2enS6iSyZBuTIpZCJmGwJc8uaN6AAqONxl60IgaWGT5AZDZD'},
+    qs: { access_token: 'EAAasXgVHJYYBAIrnZATFBPJIwf3Q9JjiGBaZBYWJftwHr0l9WwM7VeZC60OiA1juhgbsv25KZC98MMPnLeXlJbGZCJYqeEZC2VeRgWZAhXPAzbZCO3CPqudo4uSdr5XK4U5F2enS6iSyZBuTIpZCJmGwJc8uaN6AAqONxl60IgaWGT5AZDZD' },
     method: 'POST',
     json: messageData
 
   }, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
+    if (!error && response.statusCode === 200) {
       var recipientId = body.recipient_id
       var messageId = body.message_id
 
