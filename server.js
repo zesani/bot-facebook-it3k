@@ -68,7 +68,7 @@ function receivedMessage (event) {
 
   if (messageText) {
     if (messageText === ':3') {
-      // sendTextMessage(senderID, senderID)
+      sendTextMessage(senderID, senderID)
       var data = {
         id: senderID
       }
