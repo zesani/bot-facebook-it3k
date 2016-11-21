@@ -2,12 +2,20 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var request = require('request')
 var app = express()
-
+import firebase from 'firebase'
 
 app.use(bodyParser.json())
 app.set('port', (process.env.PORT || 4000))
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
+var config = {
+  apiKey: 'AIzaSyCvfNNe0e6ugHtx7vcvkguZpChxHaZmH84',
+  authDomain: 'it3k-87537.firebaseapp.com',
+  databaseURL: 'https://it3k-87537.firebaseio.com',
+  storageBucket: 'it3k-87537.appspot.com',
+  messagingSenderId: '71330528993'
+}
+firebase.initializeApp(config)
 app.get('/webhook', function (req, res) {
   var key = 'EAAD98d4jaMABALd9uZAFMbllQWZCOwZBtjPEkHcZCMrk050ZAjgsTZBIgsprI41nXR8XomBMCUPnhcDQZCMz1Rlyhaz0Vjq1JxlGuV4qcbPu38wpIZCDErky0PupzFJkpk7oqR7uoJaNivR4llCJ8MNLnZA4unhWnZBWkLMabNfxuKOQZDZD'
   if (req.query['hub.verify_token'] === key) {
