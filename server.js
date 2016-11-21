@@ -67,14 +67,6 @@ function receivedMessage (event) {
       }
       Members.push(data)
     }
-    switch (messageText) {
-      case 'generic':
-        sendGenericMessage(senderID)
-        break
-
-      default:
-        sendTextMessage(senderID, messageText)
-    }
   } else if (messageAttachments) {
     sendTextMessage(senderID, 'Message with attachment received')
   }
