@@ -11,7 +11,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.get('/webhook', function (req, res) {
-  var key = 'EAAasXgVHJYYBAIrnZATFBPJIwf3Q9JjiGBaZBYWJftwHr0l9WwM7VeZC60OiA1juhgbsv25KZC98MMPnLeXlJbGZCJYqeEZC2VeRgWZAhXPAzbZCO3CPqudo4uSdr5XK4U5F2enS6iSyZBuTIpZCJmGwJc8uaN6AAqONxl60IgaWGT5AZDZD'
+  var key = 'EAAasXgVHJYYBAM23KldGjZBmdMDtfN8g7CdL6k4ONqILUDlE246o8rohoqXscqzxnuAamChP6CFoOxU2AncMeiqg8YctT2rE3kGZANP7OEgakz2OKzutP5ZCaJZBOCeuDi1s7nZAN24eWDzRtS3pEsSDZCToCvFRkXJzsjFMZCbrwZDZD'
   if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === key) {
     console.log('Validating webhook')
@@ -49,7 +49,7 @@ app.post('/webhook', function (req, res) {
   }
 })
 
-function receivedMessage(event) {
+function receivedMessage (event) {
   var senderID = event.sender.id
   var recipientID = event.recipient.id
   var timeOfMessage = event.timestamp
@@ -104,7 +104,7 @@ function sendTextMessage(recipientId, messageText) {
 function callSendAPI (messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: 'EAAasXgVHJYYBAIrnZATFBPJIwf3Q9JjiGBaZBYWJftwHr0l9WwM7VeZC60OiA1juhgbsv25KZC98MMPnLeXlJbGZCJYqeEZC2VeRgWZAhXPAzbZCO3CPqudo4uSdr5XK4U5F2enS6iSyZBuTIpZCJmGwJc8uaN6AAqONxl60IgaWGT5AZDZD' },
+    qs: { access_token: 'EAAasXgVHJYYBAM23KldGjZBmdMDtfN8g7CdL6k4ONqILUDlE246o8rohoqXscqzxnuAamChP6CFoOxU2AncMeiqg8YctT2rE3kGZANP7OEgakz2OKzutP5ZCaJZBOCeuDi1s7nZAN24eWDzRtS3pEsSDZCToCvFRkXJzsjFMZCbrwZDZD' },
     method: 'POST',
     json: messageData
 
