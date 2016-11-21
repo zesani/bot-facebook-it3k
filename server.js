@@ -28,7 +28,7 @@ It3k.on('child_added', function (snapshot) {
   var item = snapshot.val()
   item.id = snapshot.key
   members.forEach(member => {
-    sendTextMessage(member.id, item.competition)
+    sendTextMessage(member.idMessage, item.competition)
   })
 })
 
@@ -78,7 +78,7 @@ function receivedMessage (event) {
     if (messageText === 'test') {
       sendTextMessage(senderID, senderID)
       var data = {
-        id: senderID
+        idMessage: senderID
       }
       Members.push(data)
     }
