@@ -42,7 +42,7 @@ app.post('/webhook', function (req, res) {
       var pageID = entry.id
       var timeOfEvent = entry.time
       // Iterate over each messaging event
-      entry.messaging.forEach(function(event) {
+      entry.messaging.forEach(function (event) {
         if (event.message) {
           receivedMessage(event)
         } else {
@@ -67,7 +67,7 @@ function receivedMessage (event) {
   var messageAttachments = message.attachments
 
   if (messageText) {
-    if (messageText === ':3') {
+    if (messageText === 'test') {
       sendTextMessage(senderID, senderID)
       var data = {
         id: senderID
